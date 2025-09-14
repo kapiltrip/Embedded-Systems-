@@ -39,6 +39,8 @@ QUOTIENT_PTR   DCD 0x00003028       ; output: quotient address
 REMAINDER_PTR  DCD 0x0000302C       ; output: remainder address
         
         ;
+        ; Memory map range (Read + Write): 0x00003000, 0x0000302F
+        ;   Alternative roomy range:      0x00003000, 0x000030FF
         ; Example memory contents (big-endian) and binaries
         ; Inputs you set before running:
         ;   [0x00003020] dividend = 0x0000012C (300)
