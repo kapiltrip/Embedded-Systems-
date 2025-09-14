@@ -1,8 +1,7 @@
-        AREA    EXP5, CODE, READONLY
-        EXPORT  _start
+        AREA    PROGRAM, CODE, READONLY
         ENTRY
 
-_start
+MAIN
         LDR     r0, =WORDVAL_PTR   ; pointer to external 32-bit word
         LDR     r0, [r0]           ; r0 = 0x00003000
         LDR     r0, [r0]           ; r0 = 32-bit word from memory
@@ -31,11 +30,16 @@ bit_loop
         LDR     r6, =PASS
         STR     r5, [r6]
 
-stop
-        B       stop
+DONE
+        B       DONE
 
-        ALIGN
+        ; read-only constant pointer to external word
+        AREA    PROGRAM, DATA, READONLY
 WORDVAL_PTR DCD 0x00003000     ; pointer to external 32-bit word
+
+        ; writable results
+        AREA    PROGRAM, DATA, READWRITE, ALIGN=4
+        ALIGN
 ONES    DCD 0
 ZEROS   DCD 0
 PASS    DCD 0
