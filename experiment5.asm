@@ -3,8 +3,9 @@
         ENTRY
 
 _start
-        LDR     r0, =DATA      ; 32-bit value to inspect
-        LDR     r0, [r0]
+        LDR     r0, =WORDVAL_PTR   ; pointer to external 32-bit word
+        LDR     r0, [r0]           ; r0 = 0x00003000
+        LDR     r0, [r0]           ; r0 = 32-bit word from memory
         MOV     r1, #0         ; count of ones
         MOV     r3, #32        ; bit counter
 
@@ -34,7 +35,7 @@ stop
         B       stop
 
         ALIGN
-DATA    DCD 0x12345678
+WORDVAL_PTR DCD 0x00003000     ; pointer to external 32-bit word
 ONES    DCD 0
 ZEROS   DCD 0
 PASS    DCD 0
