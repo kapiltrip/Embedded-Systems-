@@ -18,6 +18,11 @@ _start
         LDR     r1, DSTA1_PTR          ; r1 = 0x00003070
         STMIA   r1, {r2-r5}            ; DSTA1 = 1,2,3,4
 
+        ; Snapshot: show Part 1 (normal) results in r0..r3
+        LDR     r12, DSTA1_PTR
+        LDMIA   r12, {r0-r3}
+        MOV     r4, #0                 ; separator between groups
+
         ; Pair 2: use STMIB (Increment Before) → set base=start-4
         LDR     r1, DSTA2_PTR          ; r1 = start of DSTA2
         SUB     r1, r1, #4             ; r1 = start-4
@@ -41,6 +46,10 @@ _start
 copy_loop
         LDR     r3, [r0], #4           ; load and post-increment
         STR     r3, [r1], #4           ; store and post-increment
+        
+        ; In-loop snapshot: show just the last stored word
+        LDR     r5, [r1, #-4]
+
         SUBS    r2, r2, #1
         BNE     copy_loop
 
