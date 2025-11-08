@@ -1,46 +1,49 @@
-        AREA    PRACTISE, CODE, READONLY
+        AREA    EXP11, CODE, READONLY
         EXPORT  _start
         ENTRY
 
-; Practice program: evaluate a*x^2 + b*y^2 and 6(x+y) + 2z + 4.
+; Computes expression (a*x^2 + b*y^2) and (6(x+y) + 2z + 4) using literal data.
+; Results are written back to RESULT_A and RESULT_B so they can be inspected in memory.
 _start
         ; ---- Expression A: a*x^2 + b*y^2 ----
-        LDR     r0, =A_VAL        ; r0 = a
-        LDR     r0, [r0]
-        LDR     r1, =X_VAL        ; r1 = x
-        LDR     r1, [r1]
-        MUL     r2, r1, r1        ; r2 = x^2
-        MUL     r2, r2, r0        ; r2 = a*x^2
+        ;we will implement a*x^2 in this , one first 
 
-        LDR     r3, =B_VAL        ; r3 = b
-        LDR     r3, [r3]
-        LDR     r4, =Y_VAL        ; r4 = y
-        LDR     r4, [r4]
-        MUL     r5, r4, r4        ; r5 = y^2
-        MUL     r5, r5, r3        ; r5 = b*y^2
-
-        ADD     r6, r2, r5        ; r6 = a*x^2 + b*y^2
-        LDR     r7, =RESULT_A
-        STR     r6, [r7]
-
+        ldr r0,=A_VAL
+        ldr r0,[r0]
+        ldr r1,=X_VAL
+        ldr r1,[r1]
+        mul r2,r1,r1
+        mul r2,r2,r0
+        ; now , we can proceed, for creating the eqn , b*y^2
+        ldr r3,=B_VAL
+        ldr r3,[r3]
+        ldr r4,=Y_VAL
+        ldr r4,[r4]
+        mul r5,r4,r4
+        mul r5,r3,r5
+        add r6,r2,r5
+        ldr r7,=RESULT_A
+        str r6,[r7]
         ; ---- Expression B: 6(x + y) + 2z + 4 ----
-        LDR     r0, =X2_VAL       ; r0 = x (second expression)
-        LDR     r0, [r0]
-        LDR     r1, =Y2_VAL       ; r1 = y
-        LDR     r1, [r1]
-        ADD     r2, r0, r1        ; r2 = x + y
-        MOV     r3, #6
-        MUL     r2, r2, r3        ; r2 = 6(x + y)
+        ldr r0,=X_VAL
+        ldr ro,[ro]
+        ldr r1,Y_VAL
+        ldr r1,[r1]
+        ldr r2,Z_VAL
+        ldr r2,[r2]
+        add r0,r0,r1
+        mov r3,#6
+        mul r0,r3,r0
+        add r0,r0,r3,lsl #1 , 
+        ;to add 4
+        add r0,r0,#4
+        
+        ldr r4,=RESULT_B
+        str r0,r4
 
-        LDR     r4, =Z_VAL        ; r4 = z
-        LDR     r4, [r4]
-        ADD     r2, r2, r4, LSL #1 ; r2 += 2z
-        ADD     r2, r2, #4
-        LDR     r5, =RESULT_B
-        STR     r2, [r5]
 
 stop
-        B       stop
+        B       stop              ; simple halt loop for debugger
 
         ALIGN
 A_VAL   DCD 2

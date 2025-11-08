@@ -33,10 +33,6 @@ noswapD
         B       outerD
 doneD
 
-        ; Snapshot: first five descending values -> r6..r10
-        LDR     r12, DESC_PTR
-        LDMIA   r12, {r6-r10}
-
 stop
         B       stop
 

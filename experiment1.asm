@@ -12,8 +12,8 @@ _start
         ; B) logical right shift by r2
         MOV     r5, r0, LSR r2
 
-        ; C) shift left 5 bits when Z flag is set
-        CMP     r0, r0              ; set Z=1
+        ; C) shift left 5 bits when Z flag is set (if r0==0)
+        CMP     r0, #0              ; set Z based on r0==0
         MOVEQ   r6, r0, LSL #5
 
         ; D) arithmetic right shift by r2
