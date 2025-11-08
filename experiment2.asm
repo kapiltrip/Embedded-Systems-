@@ -8,14 +8,14 @@ _start
         LDR     r0, [r0]
         LDR     r1, =VALUE2_A
         LDR     r1, [r1]
-        ADDS    r2, r0, r1
+        ADD     r2, r0, r1
         LDR     r3, =RESULT_A
         STR     r2, [r3]
 
         ; B) indirect addressing (two consecutive)
         LDR     r4, =PAIR_B
         LDMIA   r4, {r5, r6}
-        ADDS    r7, r5, r6
+        ADD     r7, r5, r6
         STR     r7, [r4, #8]        ; store after the two values
 
         ; C) barrel shifter

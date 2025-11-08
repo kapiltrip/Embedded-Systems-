@@ -33,10 +33,6 @@ noswapA
         B       outerA
 doneA
 
-        ; Snapshot: first five ascending values -> r6..r10
-        LDR     r12, ASC_PTR
-        LDMIA   r12, {r6-r10}
-
 stop
         B       stop
 

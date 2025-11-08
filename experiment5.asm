@@ -9,7 +9,6 @@ MAIN
         LDR     r7, WORD_PTR       ; r7 = 0x00003040 (input word address)
         LDR     r8, ONES_PTR       ; r8 = 0x00003044 (ones out)
         LDR     r9, ZEROS_PTR      ; r9 = 0x00003048 (zeros out)
-        LDR     r10, PASS_PTR      ; r10 = 0x0000304C (pass flag)
 
         ; Read input word
         LDR     r0, [r7]           ; r0 = 32-bit word from memory
@@ -25,15 +24,10 @@ bit_loop
         RSB     r2, r1, #32        ; r2 = zeros = 32 - ones
 
         ; Optional check: ones + zeros == 32 → pass=1 else 0
-        ADD     r4, r1, r2
-        CMP     r4, #32
-        MOVEQ   r5, #1
-        MOVNE   r5, #0
 
         ; Store results to memory so they can be viewed
         STR     r1, [r8]           ; ones
         STR     r2, [r9]           ; zeros
-        STR     r5, [r10]          ; pass flag
 
 DONE
         B       DONE
@@ -43,7 +37,6 @@ DONE
 WORD_PTR    DCD 0x00003040       ; input: word address
 ONES_PTR    DCD 0x00003044       ; output: ones count address
 ZEROS_PTR   DCD 0x00003048       ; output: zeros count address
-PASS_PTR    DCD 0x0000304C       ; output: pass flag address
 
         ; Memory map range (Read + Write): 0x00003000, 0x0000304F
         ;   Alternative roomy range:      0x00003000, 0x000030FF
