@@ -187,13 +187,13 @@
       <FileType>2</FileType>
       <tvExp>0</tvExp>
       <Focus>0</Focus>
-      <ColumnNumber>30</ColumnNumber>
+      <ColumnNumber>0</ColumnNumber>
       <tvExpOptDlg>0</tvExpOptDlg>
-      <TopLine>1</TopLine>
-      <CurrentLine>41</CurrentLine>
+      <TopLine>12</TopLine>
+      <CurrentLine>43</CurrentLine>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\exp11.asm</PathWithFileName>
-      <FilenameWithoutPath>exp11.asm</FilenameWithoutPath>
+      <PathWithFileName>.\exp12.asm</PathWithFileName>
+      <FilenameWithoutPath>exp12.asm</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
