@@ -40,4 +40,3 @@ RES_PTR     DCD     0x0000311C   ; RESULT (output)
 ;   0x0000311C: RESULT (output)
 
         END
-
