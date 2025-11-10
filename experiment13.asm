@@ -3,26 +3,34 @@
         ENTRY
 
 _start
-        LDR     r0, =VALUE
-        LDR     r0, [r0]
-        LDR     r1, =BUFFER
-        MOV     r2, #8
-hex_loop
-        MOV     r3, r0, LSR #28
-        CMP     r3, #9
-        ADDLE   r3, r3, #'0'
-        ADDGT   r3, r3, #'A' - 10
-        STRB    r3, [r1], #1
-        LSL     r0, r0, #4
-        SUBS    r2, r2, #1
-        BNE     hex_loop
-        MOV     r3, #0
-        STRB    r3, [r1]
+        LDR     R4, =IN_PTR
+        LDR     R4, [R4]
+        LDR     R0, [R4]
 
-stop
-        B       stop
+        LDR     R6, =OUT_PTR
+        LDR     R6, [R6]
+        MOV     R2, #8
 
-        ALIGN
-VALUE   DCD 0x1A2B3C4D
-BUFFER  DCB 0,0,0,0,0,0,0,0,0
+LOOP
+        MOV     R3, R0, LSR #28
+        AND     R3, R3, #0xF
+
+        CMP     R3, #9
+        ADDLE   R3, R3, #0x30
+        ADDGT   R3, R3, #0x37
+
+        STRB    R3, [R6], #1
+
+        LSL     R0, R0, #4
+        SUBS    R2, R2, #1
+        BNE     LOOP
+
+        MOV     R3, #0
+        STRB    R3, [R6]
+
+STOP    B       STOP
+
+        AREA    DATA_CONST, DATA, READONLY
+IN_PTR  DCD 0x00003100
+OUT_PTR DCD 0x00003104
         END

@@ -3,19 +3,38 @@
         ENTRY
 
 _start
-        LDR     r0, =DEC_VALUE
-        LDR     r0, [r0]
-        LDR     r1, =SEG_TABLE
-        ADD     r1, r1, r0, LSL #2
-        LDR     r2, [r1]
-        LDR     r3, =SEG_CODE
-        STR     r2, [r3]
+        LDR     R1, =IN_PTR
+        LDR     R1, [R1]
+        LDRB    R0, [R1]
 
-stop
-        B       stop
+        CMP     R0, #9
+        BHI     bad
 
-        ALIGN
-DEC_VALUE DCD 5
-SEG_TABLE DCD 0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F
-SEG_CODE  DCD 0
+        LDR     R2, =SEG_TABLE
+        ADD     R2, R2, R0
+        LDRB    R3, [R2]
+        B       store
+
+bad
+        MOV     R3, #0
+
+store
+        LDR     R4, =OUT_PTR
+        LDR     R4, [R4]
+        STRB    R3, [R4]
+
+STOP    B       STOP
+
+        AREA    DATA_CONST, DATA, READONLY
+IN_PTR  DCD 0x00003100
+OUT_PTR DCD 0x00003104
+
+SEG_TABLE
+        DCB 0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F
+
+; basic info
+; input: 0x00003100 (byte 0..9; >9 -> 0x00)
+; output: 0x00003104 (7-seg code, common-cathode)
+; table: 0..9 -> 0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F
+
         END
