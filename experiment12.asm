@@ -144,4 +144,15 @@ ROOT2   DCD 0
 D_OUT   DCD 0
 SQRTD   DCD 0
 STATUS  DCD 0
+;
+; basic info (big-endian)
+; defaults: A=1, B=-5, C=6
+; outputs: ROOT1=3, ROOT2=2, D_OUT=1, SQRTD=1, STATUS=0
+; final regs @ done (with defaults):
+;   r0=6  r1=4  r2=3  r3=2  r4=4  r5=&SQRTD  r6=&STATUS
+;   r7=0  r8=2  r9=1  r10=1  r11=1  r12=&STATUS
+; range: use 32-bit signed A,B,C. To avoid overflow in D=b^2-4ac,
+;   safe picks are: |b| ≤ 46340, and |a|,|c| ≤ 23170 (so 4ac fits int32).
+;   D must be ≥ 0 for real roots (else STATUS=2). If a=0 → linear case
+;   (STATUS=3), and if a=0 & b=0 → invalid (STATUS=4).
         END
