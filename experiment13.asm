@@ -33,4 +33,11 @@ STOP    B       STOP
         AREA    DATA_CONST, DATA, READONLY
 IN_PTR  DCD 0x00003100
 OUT_PTR DCD 0x00003104
+;
+; basic info (big-endian)
+; range: 0x00000000..0xFFFFFFFF (0..4,294,967,295)
+; map: IN 0x00003100 (word), OUT 0x00003104 (9 bytes)
+; example: IN=0x4AF23BCD -> OUT="4AF23BCD\0"
+; final regs (example): R0=0x00000000, R2=0x00000000, R3=0x00000000,
+;                       R4=0x00003100, R6=0x0000310C
         END
