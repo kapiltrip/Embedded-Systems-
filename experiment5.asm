@@ -1,58 +1,36 @@
-        AREA    PROGRAM, CODE, READONLY
+AREA    HEX_TO_ASCII, CODE, READONLY
+        EXPORT  _start
         ENTRY
 
-MAIN
-        ; Count ones and zeros in a 32-bit word.
-        ; Pointer-style like exp6/exp7 (no '=label').
+_start
+        LDR     R1, =IN_WORD
+        LDR     R0, [R1]
 
-        ; Load external addresses from data labels
-        LDR     r7, WORD_PTR       ; r7 = 0x00003040 (input word address)
-        LDR     r8, ONES_PTR       ; r8 = 0x00003044 (ones out)
-        LDR     r9, ZEROS_PTR      ; r9 = 0x00003048 (zeros out)
+        LDR     R2, =0x40000000
 
-        ; Read input word
-        LDR     r0, [r7]           ; r0 = 32-bit word from memory
-        MOV     r1, #0             ; r1 = count of ones
-        MOV     r3, #32            ; r3 = bit counter
+        MOV     R3, #8
 
-bit_loop
-        LSRS    r0, r0, #1         ; shift right, LSB into carry
-        ADCS    r1, r1, #0         ; ones += carry
-        SUBS    r3, r3, #1
-        BNE     bit_loop
+convert_loop
+        MOV     R4, R0, LSR #28
 
-        RSB     r2, r1, #32        ; r2 = zeros = 32 - ones
+        CMP     R4, #9
+        ADDLE   R4, R4, #'0'
+        ADDGT   R4, R4, #('A' - 10)
 
-        ; Optional check: ones + zeros == 32 → pass=1 else 0
+        STRB    R4, [R2], #1
 
-        ; Store results to memory so they can be viewed
-        STR     r1, [r8]           ; ones
-        STR     r2, [r9]           ; zeros
+        MOV     R0, R0, LSL #4
+        SUBS    R3, R3, #1
+        BNE     convert_loop
 
-DONE
-        B       DONE
+        MOV     R4, #0
+        STRB    R4, [R2]
 
-        ; Pointers to external addresses (absolute)
-        AREA    PROGRAM, DATA, READONLY
-WORD_PTR    DCD 0x00003040       ; input: word address
-ONES_PTR    DCD 0x00003044       ; output: ones count address
-ZEROS_PTR   DCD 0x00003048       ; output: zeros count address
+halt    B       halt
 
-        ; Memory map range (Read + Write): 0x00003000, 0x0000304F
-        ;   Alternative roomy range:      0x00003000, 0x000030FF
-        ; Example memory contents (big-endian) and binaries
-        ; Input you set before running:
-        ;   [0x00003040] WORD = 0xF0F0F0F0
-        ;       bytes  : F0 F0 F0 F0
-        ;       binary : 11110000 11110000 11110000 11110000
-        ; Outputs written after running:
-        ;   [0x00003044] ONES  = 0x00000010 (16)
-        ;       bytes  : 00 00 00 10
-        ;       binary : 00000000 00000000 00000000 00010000
-        ;   [0x00003048] ZEROS = 0x00000010 (16)
-        ;       bytes  : 00 00 00 10
-        ;       binary : 00000000 00000000 00000000 00010000
-        ;   [0x0000304C] PASS  = 0x00000001 (1 if ones+zeros==32)
-        ;       bytes  : 00 00 00 01
-        ;       binary : 00000000 00000000 00000000 00000001
+        AREA    HEX_RO_DATA, DATA, READONLY
+        ALIGN
+
+IN_WORD DCD     0x4AF23BCD
+
         END
