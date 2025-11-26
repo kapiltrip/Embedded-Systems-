@@ -1,4 +1,8 @@
         AREA    EXP11, CODE, READONLY
+        ; Experiment 11: plug values into two algebraic expressions (a*x^2 + b*y^2
+        ; and 6(x+y) + 2z + 4). This mirrors the lab sheet's math practice while
+        ; keeping the data addresses explicit so inputs can be tweaked in memory
+        ; without touching the code.
         ENTRY
 
 A_ADDR          EQU 0x00003100

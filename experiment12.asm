@@ -1,4 +1,9 @@
 AREA    QUADROOT, CODE, READONLY
+        ; Experiment 12: solve a quadratic (ax^2 + bx + c = 0) using the
+        ; lab-sheet flow of discriminant → square-root → divide. Everything is
+        ; kept integer-friendly: a small incrementing loop finds sqrt(), then
+        ; two subtract/accumulate loops emulate division for the two roots.
+        ; R3=a, R4=b, R5=c, R10 holds sqrt(discriminant), and R6/R7 store roots.
         EXPORT  __main
         ENTRY
 

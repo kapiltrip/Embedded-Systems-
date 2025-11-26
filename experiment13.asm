@@ -1,4 +1,8 @@
         AREA    HEX_TO_ASCII, CODE, READONLY
+        ; Experiment 13: same hex-to-ASCII idea as experiment 5, but the lab
+        ; sheet asks for using lookup tables (ASCII map 0-9 -> '0'-'9', A-F).
+        ; The code keeps the nibble handling explicit so new learners can watch
+        ; each step in a debugger.
         EXPORT  _start
         ENTRY
 
