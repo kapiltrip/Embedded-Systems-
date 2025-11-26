@@ -1,4 +1,8 @@
         AREA    EXP15, CODE, READONLY
+        ; Experiment 15: decimal digit to seven-segment code using a lookup
+        ; table (items a & b from the lab sheet). R0 reads the input digit,
+        ; R3 takes the seven-seg pattern from SEG_TABLE, and invalid digits fall
+        ; back to 0 so the behavior is predictable for beginners.
         EXPORT  _start
         ENTRY
 

@@ -1,4 +1,8 @@
         AREA    EXP6, CODE, READONLY
+        ; Experiment 6: multiply two 32-bit numbers using repeated addition
+        ; (the simplest algorithm requested in the sheet). The data addresses
+        ; live outside the code so beginners can tweak inputs without editing
+        ; instructions; r3/r4 are the operands and r5 accumulates the product.
         EXPORT  _start
         ENTRY
 

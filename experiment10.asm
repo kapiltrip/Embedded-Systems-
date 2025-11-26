@@ -1,7 +1,8 @@
-        ; Count occurrences of 'A' in STRING and store in COUNT
-        ; r0 = ptr to STRING, r1 = count, r2 = target 'A', r3 = current byte
-        ; Execution loops until null terminator (0) is found
         AREA    EXP10, CODE, READONLY
+        ; Experiment 10: string search from the lab list (count letters in a
+        ; string). The code below keeps the register roles obvious for a
+        ; beginner: r0 walks the string, r1 accumulates the count, r2 holds the
+        ; target character ('A'), and r3 is the current byte.
         EXPORT  _start
         ENTRY
 

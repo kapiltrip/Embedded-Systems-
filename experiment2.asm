@@ -1,4 +1,8 @@
         AREA    EXP2, CODE, READONLY
+        ; Experiment 2: three addressing modes from the lab sheet in one spot.
+        ; Section A shows direct addressing with literal base symbols, section
+        ; B demonstrates indirect addressing via an address pointer, and
+        ; section C uses the barrel shifter inside an ADD for a quick multiply.
         EXPORT  _start
         ENTRY
 
