@@ -1,4 +1,9 @@
         AREA    EXP1, CODE, READONLY
+        ; Experiment 1: basic shift/rotate variations from the lab sheet.
+        ; Each block matches items A–D so beginners can map the code to the
+        ; printed instructions: left shift, logical right shift, conditional
+        ; shift when Z=1, and arithmetic right shift. r0 holds the sample
+        ; 32-bit value and r2 carries the shift count.
         EXPORT  _start
         ENTRY
 

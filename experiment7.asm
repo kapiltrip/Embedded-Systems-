@@ -1,4 +1,8 @@
         AREA    PROGRAM, CODE, READONLY
+        ; Experiment 7: unsigned division via repeated subtraction. This pairs
+        ; with the lab handout item about dividing 32-bit numbers without using
+        ; the hardware divide instruction. R3 starts as the dividend, R4 holds
+        ; the divisor, R5 becomes the quotient, and R3 is reused as remainder.
         ENTRY
 
 MAIN

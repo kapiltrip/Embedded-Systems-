@@ -1,4 +1,7 @@
         AREA    EXP14, CODE, READONLY
+        ; Experiment 14: find the length of a null-terminated string (lab list
+        ; item 14). The loop walks byte-by-byte until 0, keeping r1 as the
+        ; running count so beginners can watch it grow in a debugger.
         EXPORT  _start
         ENTRY
 
